@@ -6,6 +6,7 @@ if __name__ == '__main__':
     print(output)
     # print(fncode.seq_range.__doc__)
     help(fncode.seq_avg)
+    print(fncode.seq_avg.__defaults__)
     test_fncode.run_test()
     doc_out = doctest.testmod()
     print(doc_out)

@@ -1,7 +1,7 @@
 import statistics
 
 
-def seq_avg(seq):
+def seq_avg(seq=[1, 2]):
     """Returns the mean/ avg of a sequence
     >>> seq_avg([1,2,3])
     2
