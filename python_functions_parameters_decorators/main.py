@@ -17,6 +17,8 @@ def run_assignment2():
     print(output)
     output = fncode_subgroup.subgroup_apply(data=[1, 2, 3, 5], group_size=4)
     print(output)
+    output = fncode_subgroup.subgroup_apply2(data=[1, 2, 3, 5], group_size=4)
+    print(output)
 
 if __name__ == '__main__':
     # run_assignment1()
