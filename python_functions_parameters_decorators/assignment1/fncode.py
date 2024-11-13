@@ -17,6 +17,7 @@ def debugger(func):
 
 def limit(length):
     def decorator(function):
+        @functools.wraps(function)
         def wrapper(*args, **kwargs):
             # before
             result = function(*args, **kwargs)
@@ -32,6 +33,7 @@ def limit(length):
 @limit(5)
 def echo(foo):
     return foo
+
 
 # echo = limit(5)(echo)
 
