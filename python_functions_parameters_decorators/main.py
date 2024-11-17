@@ -1,5 +1,5 @@
 import doctest
-from python_functions_parameters_decorators.assignment1 import fncode, test_fncode
+from python_functions_parameters_decorators.assignment import fncode, test_fncode
 # from python_functions_parameters_decorators.assignment2 import fncode_subgroup
 
 def run_assignment1():
