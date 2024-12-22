@@ -1,5 +1,7 @@
 import doctest
-from python_functions_parameters_decorators.assignment import fncode, test_fncode
+from project.python_functions_parameters_decorators.assignment import test_fncode, fncode
+
+
 # from python_functions_parameters_decorators.assignment2 import fncode_subgroup
 
 def run_assignment1():
@@ -13,7 +15,7 @@ def run_assignment1():
     print(doc_out)
 
 def run_assignment2():
-    output = fncode.subgroup_ranges(data=[1,2,3,5], group_size=4)
+    output = fncode.subgroup_ranges(data=[1, 2, 3, 5], group_size=4)
     print(output)
     output = fncode.subgroup_apply(data=[1, 2, 3, 5], group_size=4)
     print(output)

@@ -1,6 +1,6 @@
 import unittest
 
-from python_functions_parameters_decorators.assignment.fncode import seq_avg, seq_range, subgroup_apply, subgroup_apply2
+from project.python_functions_parameters_decorators.assignment.fncode import seq_avg, seq_range, subgroup_apply, subgroup_apply2
 
 
 class TestFnCode(unittest.TestCase):
