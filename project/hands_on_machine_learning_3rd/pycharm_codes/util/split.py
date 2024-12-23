@@ -39,28 +39,42 @@ def split_data_sklearn_train_test_split(data, test_size=0.2, random_state=42):
     return train_test_split(data, test_size=test_size, random_state=random_state)
 
 ## Option 4
-def split_data_strat(data, n_splits=10, test_size=0.2, random_state=42, stratify_col='income_cat'):
-    '''
+def split_data_strat(data, stratify_col, n_splits=10, test_size=0.2, random_state=42):
+    """
+    Perform a stratified train-test split on the given dataset based on the specified stratify column.
 
-    :param data:
-    :param n_splits:
-    :param test_size:
-    :param random_state:
-    :param stratify_col:
-    :return:
-    '''
+    Parameters:
+    data (DataFrame): The dataset to split.
+    stratify_col (str): The column to use for stratification. Default is 'median_income'.
+    n_splits (int): The number of re-shuffling and splitting iterations. Default is 10.
+    test_size (float): The proportion of the dataset to include in the test split. Default is 0.2.
+    random_state (int): Seed used by the random number generator for reproducibility. Default is 42.
+
+    Returns:
+    list: A list containing tuples of (train_set, test_set) for each split.
+    """
+    # Binning the continuous stratify column if it's 'median_income'
+    if not stratify_col and stratify_col not in data.columns:
+        return
+
 
     splitter = StratifiedShuffleSplit(n_splits=n_splits, test_size=test_size, random_state=random_state)
     strat_splits = []
     for train_index, test_index in splitter.split(data, data[stratify_col]):
         strat_train_set_n = data.iloc[train_index]
         strat_test_set_n = data.iloc[test_index]
-        strat_splits.append([strat_train_set_n, strat_test_set_n])
+        strat_splits.append((strat_train_set_n, strat_test_set_n))
+
+    # Drop the temporary 'income_cat' column if it was created
+    if stratify_col in data.columns:
+        for strat_train_set_n, strat_test_set_n in strat_splits:
+            strat_train_set_n.drop(stratify_col, axis=1, inplace=True)
+            strat_test_set_n.drop(stratify_col, axis=1, inplace=True)
 
     return strat_splits
 
 ## Option 4 short version
-def stratified_train_test_split(data, test_size=0.2, random_state=42, stratify_col='income_cat'):
+def split_data_strat_short(data, stratify_col, test_size=0.2, random_state=42):
     """
     Perform a stratified train-test split on the given dataset based on the specified stratify column.
 
@@ -73,7 +87,36 @@ def stratified_train_test_split(data, test_size=0.2, random_state=42, stratify_c
     Returns:
     tuple: A tuple containing the training and test sets as pandas DataFrames.
     """
+    if not stratify_col and stratify_col not in data.columns:
+        return
+
     strat_train_set, strat_test_set = train_test_split(
         data, test_size=test_size, stratify=data[stratify_col], random_state=random_state
     )
+
+    # Drop the temporary 'income_cat' column if it was created
+    for set_ in (strat_train_set, strat_test_set):
+        set_.drop(stratify_col, axis=1, inplace=True)
+
     return strat_train_set, strat_test_set
+
+
+## overall test results
+def income_cat_proportions(data):
+    return data["income_cat"].value_counts() / len(data)
+
+
+def overall_test(data):
+    compare_props = pd.DataFrame({
+        "Overall %": income_cat_proportions(data),
+        "Stratified %": income_cat_proportions(strat_test_set),
+        "Random %": income_cat_proportions(test_set),
+    }).sort_index()
+
+    compare_props.index.name = "Income Category"
+    compare_props["Strat. Error %"] = (compare_props["Stratified %"] /
+                                       compare_props["Overall %"] - 1)
+    compare_props["Rand. Error %"] = (compare_props["Random %"] /
+                                      compare_props["Overall %"] - 1)
+
+    (compare_props * 100).round(2)
