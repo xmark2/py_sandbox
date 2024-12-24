@@ -16,7 +16,8 @@ def shuffle_and_split_data(data, test_ratio):
 
 ## Option2
 def is_id_in_test_set(identifier, test_ratio):
-    return crc32(np.int64(identifier)) < test_ratio * 2**32
+    return crc32(np.int64(identifier)) < test_ratio * 2 ** 32
+
 
 def split_data_with_id_hash(data, test_ratio=0.2, id_column=None):
     if not id_column:
@@ -26,8 +27,9 @@ def split_data_with_id_hash(data, test_ratio=0.2, id_column=None):
     in_test_set = ids.apply(lambda id_: is_id_in_test_set(id_, test_ratio))
     return data.loc[~in_test_set], data.loc[in_test_set]
 
+
 ## Option 3
-def split_data_sklearn_train_test_split(data, test_size=0.2, random_state=42):
+def split_train_test_split_random(data, test_size=0.2, random_state=42):
     '''
 
     :param data:
@@ -36,10 +38,21 @@ def split_data_sklearn_train_test_split(data, test_size=0.2, random_state=42):
     :return:
     example: train_set, test_set = train_test_split(housing, test_size=0.2, random_state=42)
     '''
-    return train_test_split(data, test_size=test_size, random_state=random_state)
+    train_set, test_set = train_test_split(data, test_size=test_size, random_state=random_state)
+    return train_set, test_set
+
+def data_add_strat_col(data, strat_dict):
+    stratify_col = strat_dict['stratify_col']
+    stratify_col_source = strat_dict['stratify_col']
+    bins = strat_dict['bins']
+    labels = strat_dict['labels']
+
+    data[stratify_col] = pd.cut(data[stratify_col_source], bins=bins, labels=labels)
+    return data
+
 
 ## Option 4
-def split_data_strat(data, stratify_col, n_splits=10, test_size=0.2, random_state=42):
+def split_data_strat(data, strat_dict, n_splits=10, test_size=0.2, random_state=42):
     """
     Perform a stratified train-test split on the given dataset based on the specified stratify column.
 
@@ -53,10 +66,12 @@ def split_data_strat(data, stratify_col, n_splits=10, test_size=0.2, random_stat
     Returns:
     list: A list containing tuples of (train_set, test_set) for each split.
     """
+    stratify_col = strat_dict['stratify_col']
+    data = data_add_strat_col(data, strat_dict)
+
     # Binning the continuous stratify column if it's 'median_income'
     if not stratify_col and stratify_col not in data.columns:
         return
-
 
     splitter = StratifiedShuffleSplit(n_splits=n_splits, test_size=test_size, random_state=random_state)
     strat_splits = []
@@ -73,8 +88,9 @@ def split_data_strat(data, stratify_col, n_splits=10, test_size=0.2, random_stat
 
     return strat_splits
 
+
 ## Option 4 short version
-def split_data_strat_short(data, stratify_col, test_size=0.2, random_state=42):
+def split_data_strat_short(data, strat_dict, test_size=0.2, random_state=42):
     """
     Perform a stratified train-test split on the given dataset based on the specified stratify column.
 
@@ -87,6 +103,9 @@ def split_data_strat_short(data, stratify_col, test_size=0.2, random_state=42):
     Returns:
     tuple: A tuple containing the training and test sets as pandas DataFrames.
     """
+    stratify_col = strat_dict['stratify_col']
+    data = data_add_strat_col(data, strat_dict)
+
     if not stratify_col and stratify_col not in data.columns:
         return
 
@@ -102,15 +121,19 @@ def split_data_strat_short(data, stratify_col, test_size=0.2, random_state=42):
 
 
 ## overall test results
-def income_cat_proportions(data):
-    return data["income_cat"].value_counts() / len(data)
+def income_cat_proportions(data, strat_dict):
+    stratify_col = strat_dict['stratify_col']
+    return data[stratify_col].value_counts() / len(data)
 
 
-def overall_test(data):
+def overall_test(data, strat_dict):
+    strat_train_set, strat_test_set = split_data_strat_short(data, strat_dict)
+    train_set, test_set = split_train_test_split_random(data)
+
     compare_props = pd.DataFrame({
-        "Overall %": income_cat_proportions(data),
-        "Stratified %": income_cat_proportions(strat_test_set),
-        "Random %": income_cat_proportions(test_set),
+        "Overall %": income_cat_proportions(data, strat_dict),
+        "Stratified %": income_cat_proportions(strat_test_set, strat_dict),
+        "Random %": income_cat_proportions(test_set, strat_dict),
     }).sort_index()
 
     compare_props.index.name = "Income Category"
@@ -120,3 +143,4 @@ def overall_test(data):
                                       compare_props["Overall %"] - 1)
 
     (compare_props * 100).round(2)
+    return compare_props

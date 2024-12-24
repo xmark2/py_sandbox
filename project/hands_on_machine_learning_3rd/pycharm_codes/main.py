@@ -147,9 +147,7 @@ def evaluate_model(model, housing_prepared, housing_labels):
 def execute():
     housing_data = download_housing_data()
 
-    housing_data["income_cat"] = pd.cut(housing_data["median_income"],
-                                   bins=[0., 1.5, 3.0, 4.5, 6., np.inf],
-                                   labels=[1, 2, 3, 4, 5])
+
 
     explore_data(housing_data)
 
