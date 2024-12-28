@@ -7,6 +7,9 @@ from pathlib import Path
 import urllib.request
 from util import split, prepare
 from sklearn.linear_model import LinearRegression
+from sklearn.tree import DecisionTreeRegressor
+from sklearn.ensemble import RandomForestRegressor
+
 from sklearn.metrics import mean_squared_error
 
 
@@ -107,9 +110,16 @@ def train_model(housing_prepared, housing_labels):
     Returns:
     LinearRegression: The trained linear regression model.
     """
-    model = LinearRegression()
+    # model = LinearRegression()
+    model = DecisionTreeRegressor(random_state=42)
+    # model = RandomForestRegressor(random_state=42)
     model.fit(housing_prepared, housing_labels)
     return model
+
+    # from sklearn.linear_model import LinearRegression
+    #
+    # lin_reg = make_pipeline(preprocessing, LinearRegression())
+    # lin_reg.fit(housing, housing_labels)
 
 
 def evaluate_model(model, housing_prepared, housing_labels):
@@ -125,9 +135,27 @@ def evaluate_model(model, housing_prepared, housing_labels):
     None
     """
     predictions = model.predict(housing_prepared)
+    print('predictions', predictions[:5].round(-2))
+    print('housing_labels', housing_labels.iloc[:5].values)
+
+    # extra code – computes the error ratios discussed in the book
+    error_ratios = predictions[:10].round(-2) / housing_labels.iloc[:10].values - 1
+    print(", ".join([f"{100 * ratio:.1f}%" for ratio in error_ratios]))
+
     mse = mean_squared_error(housing_labels, predictions)
     rmse = np.sqrt(mse)
     print(f"Root Mean Squared Error: {rmse}")
+
+    # extra code – computes the error stats for the linear model
+    # lin_rmses = -cross_val_score(lin_reg, housing, housing_labels,
+    #                              scoring="neg_root_mean_squared_error", cv=10)
+    # pd.Series(lin_rmses).describe()
+
+    from sklearn.model_selection import cross_val_score
+
+    tree_rmses = -cross_val_score(model, housing_prepared, housing_labels,
+                                  scoring="neg_root_mean_squared_error", cv=10)
+    print(pd.Series(tree_rmses).describe())
 
 
 def execute():
