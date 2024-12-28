@@ -6,7 +6,14 @@ from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.compose import ColumnTransformer
 from sklearn.cluster import KMeans
+
+from sklearn.metrics.pairwise import rbf_kernel
+from sklearn.base import BaseEstimator, TransformerMixin
+from sklearn.utils.validation import check_array, check_is_fitted
+
 from sklearn.compose import make_column_selector, make_column_transformer
+
+from sklearn.preprocessing import FunctionTransformer
 
 
 def preprocessed_to_df(housing_prepared, preprocessing, housing):
@@ -29,6 +36,7 @@ def prepare_data_option1(train_set):
     tuple: A tuple containing the prepared features and the labels as NumPy arrays.
     """
     # housing_num = housing.select_dtypes(include=[np.number])
+    # text_data = housing.select_dtypes(include=['object'])
 
     housing = train_set.drop("median_house_value", axis=1)
     housing_labels = train_set["median_house_value"].copy()
@@ -79,7 +87,7 @@ def prepare_data_option2(train_set):
         SimpleImputer(strategy="most_frequent"),
         OneHotEncoder(handle_unknown="ignore"))
 
-    from sklearn.compose import make_column_selector, make_column_transformer
+
 
     # preprocessing Option2
     preprocessing = make_column_transformer(
@@ -95,8 +103,6 @@ def prepare_data_option2(train_set):
 
 
 
-from sklearn.preprocessing import FunctionTransformer
-
 def column_ratio(X):
     return X[:, [0]] / X[:, [1]]
 
@@ -108,10 +114,6 @@ def ratio_pipeline():
         SimpleImputer(strategy="median"),
         FunctionTransformer(column_ratio, feature_names_out=ratio_name),
         StandardScaler())
-
-from sklearn.metrics.pairwise import rbf_kernel
-from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.utils.validation import check_array, check_is_fitted
 
 
 class StandardScalerClone(BaseEstimator, TransformerMixin):
