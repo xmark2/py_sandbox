@@ -5,7 +5,7 @@ import pandas as pd
 import tarfile
 from pathlib import Path
 import urllib.request
-from util import split, prepare
+from util import split, prepare, fine_tune
 from sklearn.linear_model import LinearRegression
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor
@@ -158,6 +158,10 @@ def evaluate_model(model, housing_prepared, housing_labels):
     print(pd.Series(tree_rmses).describe())
 
 
+def fine_tune_options(model, housing_prepared, housing_labels):
+    fine_tune.grid_search_fine_tune(housing_prepared, housing_labels)
+
+
 def execute():
     housing_data = download_housing_data()
 
@@ -168,6 +172,9 @@ def execute():
 
     model = train_model(housing_prepared, housing_labels)
     evaluate_model(model, housing_prepared, housing_labels)
+    fine_tune_options(model, housing_prepared, housing_labels)
+
+
 
 
 # Main execution
