@@ -21,6 +21,38 @@ class Employee:
         name, position, salary = employee_string.split("-")
         return cls(name, position, float(salary))
 
+class MathOperations:
+    @staticmethod
+    def add_numbers(a, b):
+        return a + b
+
+    @staticmethod
+    def multiply_numbers(a, b):
+        return a * b
+
+
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius  # Protected attribute
+
+    @property
+    def radius(self):
+        """Getter for radius"""
+        return self._radius
+
+    @radius.setter
+    def radius(self, value):
+        """Setter for radius"""
+        if value >= 0:
+            self._radius = value
+        else:
+            raise ValueError("Radius must be non-negative")
+
+    @property
+    def area(self):
+        """Area is a read-only property (no setter)"""
+        return 3.14 * (self._radius ** 2)
+
 
 
 if __name__ == '__main__':
@@ -42,3 +74,20 @@ if __name__ == '__main__':
     emp2 = Employee.from_string(employee_string)
     # emp2.set_raise_percentage(1.10)
     print(f"Employee 2: {emp2.name}, {emp2.position}, ${emp2.salary}, {emp2.raise_percentage}")
+
+    # Using @staticmethod
+    print(MathOperations.add_numbers(5, 3))  # Outputs: 8
+    print(MathOperations.multiply_numbers(5, 3))  # Outputs: 15
+
+    # Example usage
+    circle = Circle(5)
+    print(f"Radius: {circle.radius}")  # Accessing the radius (getter)
+
+    circle.radius = 10  # Updating the radius (setter)
+    print(f"Updated Radius: {circle.radius}")
+    print(f"Area: {circle.area}")  # Accessing the area (read-only property)
+
+    print(circle.radius)
+
+    # Trying to set a negative radius (raises error)
+    # circle.radius = -3  # Uncommenting this line will raise ValueError
