@@ -48,6 +48,11 @@ class Circle:
         else:
             raise ValueError("Radius must be non-negative")
 
+    @radius.deleter
+    def radius(self):
+        """Deleter for radius"""
+        self._radius = None
+
     @property
     def area(self):
         """Area is a read-only property (no setter)"""
@@ -56,38 +61,47 @@ class Circle:
 
 
 if __name__ == '__main__':
-    # Using @classmethod
-    Employee.set_raise_percentage(1.10)
-    print(Employee.raise_percentage)  # Outputs: 1.10
-
-    # employee_str = "Alice,50000"
-    # new_employee = Employee.from_string(employee_str)
-    # print(new_employee.name)  # Outputs: Alice
-    # print(new_employee.salary)  # Outputs: 50000.0
-
-    # Using the main constructor
-    emp1 = Employee("Alice", "Manager", 75000)
-    print(f"Employee 1: {emp1.name}, {emp1.position}, ${emp1.salary}")
-
-    # Using the @classmethod constructor
-    employee_string = "Bob-Developer-60000"
-    emp2 = Employee.from_string(employee_string)
-    # emp2.set_raise_percentage(1.10)
-    print(f"Employee 2: {emp2.name}, {emp2.position}, ${emp2.salary}, {emp2.raise_percentage}")
-
-    # Using @staticmethod
-    print(MathOperations.add_numbers(5, 3))  # Outputs: 8
-    print(MathOperations.multiply_numbers(5, 3))  # Outputs: 15
-
     # Example usage
     circle = Circle(5)
-    print(f"Radius: {circle.radius}")  # Accessing the radius (getter)
-
-    circle.radius = 10  # Updating the radius (setter)
-    print(f"Updated Radius: {circle.radius}")
-    print(f"Area: {circle.area}")  # Accessing the area (read-only property)
-
+    print(circle.radius)
+    circle.radius = 10
     print(circle.radius)
 
-    # Trying to set a negative radius (raises error)
-    # circle.radius = -3  # Uncommenting this line will raise ValueError
+    del circle.radius
+    print(circle.radius)
+    # print(f"Radius: {circle.radius}")  # Accessing the radius (getter)
+    #
+    # circle.radius = 10  # Updating the radius (setter)
+    # print(f"Updated Radius: {circle.radius}")
+    # print(f"Area: {circle.area}")  # Accessing the area (read-only property)
+    #
+    # print(circle.radius)
+    #
+    # # Trying to set a negative radius (raises error)
+    # # circle.radius = -3  # Uncommenting this line will raise ValueError
+
+
+
+    # # Using @classmethod
+    # Employee.set_raise_percentage(1.10)
+    # print(Employee.raise_percentage)  # Outputs: 1.10
+    #
+    # # employee_str = "Alice,50000"
+    # # new_employee = Employee.from_string(employee_str)
+    # # print(new_employee.name)  # Outputs: Alice
+    # # print(new_employee.salary)  # Outputs: 50000.0
+    #
+    # # Using the main constructor
+    # emp1 = Employee("Alice", "Manager", 75000)
+    # print(f"Employee 1: {emp1.name}, {emp1.position}, ${emp1.salary}")
+    #
+    # # Using the @classmethod constructor
+    # employee_string = "Bob-Developer-60000"
+    # emp2 = Employee.from_string(employee_string)
+    # # emp2.set_raise_percentage(1.10)
+    # print(f"Employee 2: {emp2.name}, {emp2.position}, ${emp2.salary}, {emp2.raise_percentage}")
+    #
+    # # Using @staticmethod
+    # print(MathOperations.add_numbers(5, 3))  # Outputs: 8
+    # print(MathOperations.multiply_numbers(5, 3))  # Outputs: 15
+    #
