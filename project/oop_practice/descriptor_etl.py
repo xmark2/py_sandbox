@@ -64,7 +64,7 @@ class ETLPipeline:
         self.load_stage = etl_class.load(self.transform_stage)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Running the ETL Pipeline
     pipeline = ETLPipeline()
     etl_process = CSVToDatabaseETL()

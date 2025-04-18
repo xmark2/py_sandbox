@@ -23,7 +23,7 @@ class Book:
     #     return f'here is a documentation: {self.title}, {self.author}'
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Using dunder methods
     book1 = Book("Python 101", "Mark", 30)
     book2 = Book("AI for Beginners", "John", 40)

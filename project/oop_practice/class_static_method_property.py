@@ -60,7 +60,7 @@ class Circle:
 
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Example usage
     circle = Circle(5)
     print(circle.radius)

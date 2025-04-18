@@ -20,7 +20,7 @@ class Person:
         self.name = name
         self.age = age
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Example usage
     try:
         person = Person("Mark", 30)

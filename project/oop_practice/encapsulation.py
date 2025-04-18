@@ -26,7 +26,7 @@ class BankAccount:
             print("Invalid withdrawal amount!")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
 
     # Creating an object
     account = BankAccount("Mark", 1000)

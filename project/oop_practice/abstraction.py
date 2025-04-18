@@ -60,7 +60,7 @@ class APIETLProcess(ETLProcess):
             print(f"Dashboard record: {record}")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Using the ETL processes
     csv_etl = CSVETLProcess()
     data = csv_etl.extract()

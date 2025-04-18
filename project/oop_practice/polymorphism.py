@@ -31,7 +31,7 @@ class Triangle(Shape):
 def print_area(shape):
     print(f"The area is: {shape.area()}")
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # Creating different shape objects
     rectangle = Rectangle(10, 5)
     circle = Circle(7)
