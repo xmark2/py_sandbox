@@ -1,9 +1,6 @@
 import requests
 import datetime
 from abc import ABC, abstractmethod
-# from functools import wraps
-
-# from joblib.testing import raises
 from pympler import asizeof
 import sys
 import logging
@@ -12,63 +9,85 @@ from pathlib import Path
 import os
 from urllib.parse import urlparse
 
-_logger = logging.getLogger(__name__)
 
-logging.basicConfig(
-    format='%(levelname)-6s %(name)-15s %(asctime)s.%(msecs)03d %(message)-5s',
-    datefmt="%Y-%m-%d %H:%M:%S",
-    level=logging.INFO,
-    handlers=[
-        logging.FileHandler(Path().cwd().joinpath(f'{__name__}.log')),
-        logging.StreamHandler()
-    ]
-)
+class Logger:
+    def __init__(self, name=__name__, log_file=None, log_level=logging.INFO):
+        self.logger = logging.getLogger(name)
+        self.logger.setLevel(log_level)
 
-_logger = logging.getLogger(__name__)
+        # Create handlers
+        self.file_handler = logging.FileHandler(log_file or Path().cwd().joinpath(f"{name}.log"))
+        self.stream_handler = logging.StreamHandler()
 
-def log_decorator(max_retries=1, log_memory_usage=True):
-    """Decorator to log function execution, retry on failure, and measure memory usage."""
-    def decorator(func):
+        # Define the logging format
+        formatter = logging.Formatter(
+            fmt="%(levelname)-6s %(name)-15s %(asctime)s.%(msecs)03d %(message)-5s",
+            datefmt="%Y-%m-%d %H:%M:%S",
+        )
+        self.file_handler.setFormatter(formatter)
+        self.stream_handler.setFormatter(formatter)
+
+        # Add handlers to the logger
+        self.logger.addHandler(self.file_handler)
+        self.logger.addHandler(self.stream_handler)
+
+    def get_logger(self):
+        """Return the configured logger."""
+        return self.logger
+
+# Logger Usage
+# logger_util = Logger(name="my_logger", log_level=logging.DEBUG)
+logger_util = Logger(log_level=logging.DEBUG)
+_logger = logger_util.get_logger()
+
+
+class LogDecorator:
+    """Class-based decorator for logging function execution and retrying on failure."""
+
+    def __init__(self, max_retries=1, log_memory_usage=False):
+        self.max_retries = max_retries
+        self.log_memory_usage = log_memory_usage
+
+    def log_memory(self, state, obj, func_name):
+        """Log memory usage."""
+        if self.log_memory_usage and obj is not None:
+            memory_usage = asizeof.asizeof(obj)
+            _logger.info(f"{func_name} {state}: Memory usage: {memory_usage} bytes")
+
+    def handle_exception(self, attempt, error, func_name, args):
+        """Handle exceptions during retries."""
+        _logger.error(f"Error on attempt {attempt}: {error}")
+        if self.log_memory_usage:
+            self.log_memory("during error", args, func_name)
+
+    def __call__(self, func):
+        """Make the class instance callable as a decorator."""
         @functools.wraps(func)
         def wrapper(*args, **kwargs):
-            def log_memory(state, obj):
-                """Log memory usage."""
-                if log_memory_usage:
-                    memory_usage = asizeof.asizeof(obj)
-                    _logger.info(f"{func.__name__} {state}: Memory usage: {memory_usage} bytes")
+            for attempt in range(self.max_retries):
+                if self.max_retries > 1:
+                    _logger.info(f"Attempt {attempt + 1}/{self.max_retries}: {func.__name__} started")
+                else:
+                    _logger.info(f"{func.__name__} started")
 
-            def handle_exception(attempt, error):
-                """Handle exceptions during retries."""
-                _logger.error(f"Error on attempt {attempt}: {error}")
-                if log_memory_usage:
-                    log_memory("during error", args)
-
-            for attempt in range(max_retries):
-                _logger.info(f"Attempt {attempt + 1}/{max_retries}: {func.__name__} started")
-                log_memory("inputs", args)
-
+                self.log_memory("inputs", args, func.__name__)
                 try:
-                    result = func(*args, **kwargs)
-                    log_memory("completed", result)
+                    result = func(*args, **kwargs)  # Execute the decorated function
+                    self.log_memory("completed", result, func.__name__)
                     _logger.info(f"{func.__name__} completed successfully.")
                     return result
-
                 except requests.RequestException as e:
-                    handle_exception(attempt + 1, e)
-                    if attempt == max_retries - 1:
-                        _logger.error("Function failed after maximum retries.")
+                    self.handle_exception(attempt + 1, e, func.__name__, args)
+                    if attempt == self.max_retries - 1:  # If last attempt fails, raise the exception
+                        _logger.error(f"{func.__name__} failed after maximum retries.")
                         raise
-                    _logger.info("Retrying...")
-
+                    _logger.info(f"Retrying {func.__name__}...")
             return None
-
         return wrapper
-
-    return decorator
 
 
 # --- Abstract Base Class ---
-class ETLProcess(ABC):
+class ETLBase(ABC):
     """Abstract base class for ETL processes."""
 
     @abstractmethod
@@ -83,6 +102,36 @@ class ETLProcess(ABC):
     def load(self):
         pass
 
+    @abstractmethod
+    def execute(self):
+        pass
+
+class ETLPipeline:
+    def __init__(self):
+        # Store dynamic attributes in a dictionary
+        self._attributes = {}
+
+    def __getattr__(self, name):
+        # Retrieve dynamic attributes
+        if name in self._attributes:
+            return self._attributes[name]
+        raise AttributeError(f"'ETLPipeline' object has no attribute '{name}'")
+
+    def __setattr__(self, name, value):
+        # Allow dynamic attributes for metadata
+        if name.startswith("_"):
+            super().__setattr__(name, value)
+        else:
+            print(f"Setting dynamic attribute: {name} = {value}")
+            self._attributes[name] = value
+
+    def __delattr__(self, name):
+        # Delete dynamic attributes
+        if name in self._attributes:
+            print(f"Deleting dynamic attribute: {name}")
+            del self._attributes[name]
+        else:
+            raise AttributeError(f"'ETLPipeline' object has no attribute '{name}'")
 
 #
 # # Descriptor for positive value
@@ -97,42 +146,10 @@ class ETLProcess(ABC):
 #
 #     def __set_name__(self, owner, name):
 #         self.name = name
-#
-#
-# class MetadataDescriptor:
-#     def __init__(self, name):
-#         self.name = name
-#
-#     def __get__(self, instance, owner):
-#         return instance.__dict__.get("metadata", None)
-#
-#     def __set__(self, instance, value):
-#         instance.__dict__["metadata"] = f"{value} at {datetime.datetime.now()}"
-#         print(f"Metadata updated: {instance.metadata}")
-#
-#     def __delete__(self, instance):
-#         print(f"Deleting transformation metadata: {self.name}")
-#         del instance.__dict__[self.name]
 
 
-# # --- Descriptor ---
-# class TransformDescriptor:
-#     """Descriptor to track transformation metadata."""
-#     def __init__(self, name):
-#         self.name = name
-#
-#     def __get__(self, instance, owner):
-#         return instance.__dict__.get(self.name, None)
-#
-#     def __set__(self, instance, value):
-#         print(f"Setting transformation metadata: {self.name} = {value}")
-#         instance.__dict__[self.name] = value
-#
-#     def __delete__(self, instance):
-#         print(f"Deleting transformation metadata: {self.name}")
-#         del instance.__dict__[self.name]
 
-class SourceValidator:
+class SourceDescriptor:
     """Descriptor to validate if the source is a valid URL or network file path."""
 
     def __init__(self, name):
@@ -166,6 +183,25 @@ class SourceValidator:
         return os.path.isabs(value) or value.startswith("\\\\")
 
 
+# --- Descriptor ---
+class TransformDescriptor:
+    """Descriptor to track transformation metadata."""
+    def __init__(self, name):
+        self.name = name
+
+    def __get__(self, instance, owner):
+        return instance.__dict__.get(self.name, None)
+
+    def __set__(self, instance, value):
+        _logger.info(f"Setting transformation metadata: {self.name} = {value}")
+        instance.__dict__[self.name] = value
+
+    def __delete__(self, instance):
+        _logger.info(f"Deleting transformation metadata: {self.name}")
+        del instance.__dict__[self.name]
+
+
+
 # --- Context Manager ---
 class FileManager:
     """Context manager for handling file operations."""
@@ -183,13 +219,11 @@ class FileManager:
 
 
 # --- ETL Pipeline ---
-class MemoryOptimizedETL(ETLProcess):
-    __slots__ = ('source', 'data', 'transformed_data', 'destination', 'transformation_metadata')
+class MemoryOptimizedETL(ETLBase):
+    __slots__ = ('source', 'data', 'transformed_data', 'destination')
 
-    validated_source = SourceValidator("validated_source")  # Renamed descriptor
-
-    # transformation_metadata = TransformDescriptor("transformation_metadata")
-    # source = SourceValidator("source")  # Use the descriptor for the source
+    validated_source = SourceDescriptor("validated_source")  # Renamed descriptor
+    transformation_metadata = TransformDescriptor("transformation_metadata")
 
     def __init__(self, source, destination):
         self.validated_source = source
@@ -198,66 +232,43 @@ class MemoryOptimizedETL(ETLProcess):
         self.destination = destination
         self.transformation_metadata = None
 
-    # @log_decorator
-    @log_decorator(max_retries=3)
+    @LogDecorator(max_retries=3, log_memory_usage=True)
     def extract(self):
-        # try:
         # """Extract data from a remote API."""
-        # _logger.info(f"Extracting data from source: {self.validated_source}")
         response = requests.get(self.validated_source)
-        # if not response:
         response.raise_for_status()
-            # _logger.error(error_msg)  # Raise exception for invalid responses
         self.data = response.json()
         _logger.info(self.data)
-        # print("Data extracted successfully.")
         return self.data
-        # except requests.exceptions as http_err:
-            # Log specific HTTP error
-            # _logger.error(f"HTTP error occurred: {http_err}")  # Captures the error message
 
-    @log_decorator()
+    @LogDecorator(max_retries=1, log_memory_usage=True)
     def transform(self):
         """Transform data."""
-        # print("Transforming data...")
         self.transformation_metadata = "Scaling values by 2"
         self.transformed_data = [{**record, "id": record["id"] * 2} for record in self.data]
         # print(f"Data transformed with metadata: {self.transformation_metadata}")
 
-    @log_decorator()
+    @LogDecorator(max_retries=1, log_memory_usage=True)
     def load(self):
         """Load data into a file using a context manager."""
-        # print(f"Loading data to destination: {self.destination}")
         with FileManager(self.destination, "w") as file:
             for record in self.transformed_data:
                 file.write(f"{record}\n")
-        # print("Data loaded successfully.")
 
-    @log_decorator()
+    @LogDecorator(max_retries=1, log_memory_usage=True)
     def execute(self):
 
-        # _logger.info(f"Memory usage of ETL instance (pympler): {asizeof.asizeof(self)} bytes")
         # Extract stage
         _data = self.extract()
 
-        # print(f"Memory usage of ETL instance (pympler): {asizeof.asizeof(self)} bytes")
         # Transform stage
         if not _data:
             return
         self.transform()
 
-        # print(f"Memory usage of ETL instance (pympler): {asizeof.asizeof(self)} bytes")
         # Load stage
         self.load()
 
-        # print(f"Memory usage of ETL instance (pympler): {asizeof.asizeof(self)} bytes")
-
-
-# --- Dynamic Attributes ---
-def add_dynamic_metadata(etl_instance, name, value):
-    """Add dynamic attributes for metadata tracking."""
-    setattr(etl_instance, name, value)
-    # print(f"Dynamic attribute added: {name} = {value}")
 
 
 # --- Example Usage ---
@@ -269,25 +280,3 @@ if __name__ == "__main__":
     )
 
     etl.execute()
-
-    # # Extract stage
-    # data = etl.extract()
-    #
-    # # Transform stage
-    # if not data:
-    #     return
-    # etl.transform()
-    #
-    # # Add dynamic metadata
-    # # add_dynamic_metadata(etl, "pipeline_status", "Transformation complete")
-    #
-    # # Load stage
-    # etl.load()
-
-    # # Access dynamic and descriptor attributes
-    # print(f"Transformation Metadata: {etl.transformation_metadata}")
-    # print(f"Pipeline Status (Dynamic Attribute): {etl.pipeline_status}")
-    #
-    # Check memory usage
-    # print(f"Memory usage of ETL instance (sys): {sys.getsizeof(etl)} bytes")
-    # print(f"Memory usage of ETL instance (pympler): {asizeof.asizeof(etl)} bytes")
