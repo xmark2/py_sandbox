@@ -410,3 +410,35 @@ for t in threads:
 print('process completed')
 ```
 
+
+## Map trick
+
+```commandline
+def square(n):
+    return n**2
+
+if __name__=="__main__":
+    List = [1,2,3,4,5]
+    squares = list(map(square, List))
+    print(squares)
+```
+
+
+## Test with Fake data
+
+```commandline
+from faker import Faker
+
+fake = Faker()
+
+print({
+    'full_name': fake.name(),
+    'email': fake.email(),
+    'address': fake.address(),
+    'phone': fake.phone_number(),
+    'job': fake.job(),
+    'company': fake.company(),
+    'registered_date': fake.date_this_decade().isoformat()
+})
+```
+
