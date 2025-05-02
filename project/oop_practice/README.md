@@ -371,3 +371,42 @@ print(add(2, 3))
 | * | Unpacks positional arguments, iterable unpacking, list/tuple merging. | 
 | ** | Unpacks keyword arguments or dictionary into named arguments. | 
 
+
+
+## Multiprocessing
+
+```commandline
+from multiprocessing import Pool
+
+# Function to compute square
+def compute_square(n):
+    return n ** 2
+    
+
+with Pool(processes=4) as pool:  # Use 4 parallel processes
+    numbers = [1, 2, 3, 4, 5]
+    results = pool.map(compute_square, numbers)
+    print("Squares:", results)
+```
+
+## Threading
+
+```commandline
+def add_nums(*args):
+  print(sum(args))
+  
+
+nums_ls = [(1,2,3), (4,5,6), (7,8,9)]
+
+threads = []
+for nums in nums_ls:
+  t = threading.Thread(target=add_nums, args=nums)
+  threads.append(t)
+  t.start()
+
+for t in threads:
+  t.join()
+
+print('process completed')
+```
+
