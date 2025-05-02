@@ -1,5 +1,6 @@
 # Using Getter and Setter Methods
-# Encapsulation often involves controlling access to attributes using getter and setter methods. These methods allow indirect interaction with private or protected attributes.
+# Encapsulation often involves controlling access to attributes using getter and setter methods.
+# These methods allow indirect interaction with private or protected attributes.
 
 
 
