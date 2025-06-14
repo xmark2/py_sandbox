@@ -1,0 +1,643 @@
+    1  sudo apt update
+    2  cd ..
+    3  ls -l
+    4  sudo sh ./VBoxLinuxAdditions.run
+    5  sudo apt install build-essential dkms linux-headers-$(uname -r)
+    6  free -h
+    7  reboot
+    8  python --version
+    9  python3 --version
+   10  sudo apt install snapd
+   11  sudo snap install pycharm-community --classic
+   12  sudo snap install sublime-text --classic
+   13  sudo snap install code --classic
+   14  sudo apt install apt-transport-https ca-certificates curl software-properties-common
+   15  curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+   16  echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+   17  sudo apt update
+   18  sudo apt install docker-ce
+   19  sudo systemctl status docker
+   20  docker --version
+   21  ls -l
+   22  pip list
+   23  python --version
+   24  python3 --version
+   25  python hw_fin_etl_tool.py visual
+   26  python3 hw_fin_etl_tool.py visual
+   27  whoami
+   28  fdisk -l
+   29  df -h
+   30  bg
+   31  ps
+   32  history
+   33  ls -l
+   34  ~~
+   35  ls -l
+   36  cd Documents/
+   37  ls -l
+   38  cd ..
+   39  cd Music
+   40  ls -l
+   41  c ..
+   42  cd ..
+   43  cd Documents/
+   44  ls -l
+   45  id
+   46  last
+   47  ifconfig
+   48  cal
+   49  date
+   50  hostname
+   51  last reboot
+   52  uptime
+   53  jobs
+   54  last
+   55  clear
+   56  cd ..
+   57  ls -l
+   58  hostname
+   59  lshw
+   60  last
+   61  uptime
+   62  last reboot
+   63  ls -l
+   64  cd PycharmProjects/
+   65  ls -l
+   66  cd wiki/
+   67  ls -l
+   68  head requirements.txt 
+   69  tail requirements.txt 
+   70  head README.md 
+   71  less
+   72  less README.md 
+   73  pwd
+   74  sudo apt install libmpv-dev
+   75  ls -l
+   76  head requirements.txt 
+   77  tail requirements.txt 
+   78  history
+   79  pwd
+   80  jobs
+   81  df -h
+   82  ls -l
+   83  find req
+   84  find .req
+   85  find requirements.txt
+   86  cd ..
+   87  find requirements.txt
+   88  find */requirements.txt
+   89  date
+   90  cal
+   91  hostname
+   92  sudo apt update && sudo apt upgrade -y
+   93  cd ~
+   94  sudo apt install -y python3 python3-pip python3-venv python3-dev build-essential libpq-dev
+   95  cd PycharmProjects/
+   96  mkdir airflow
+   97  cd airflow/
+   98  python3 --version
+   99  python3 -m venv airflow_env
+  100  ls -l
+  101  source airflow_env/bin/activate
+  102  pip install apache-airflow[postgres,celery,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  103  deactivate 
+  104  sudo apt update
+  105  sudo apt install python3.11 python3.11-venv python3.11-dev
+  106  ls -l
+  107  python3 --version
+  108  sudo apt install python3.11 python3.11-venv python3.11-dev
+  109  cd ~
+  110  sudo apt install python3.11 python3.11-venv python3.11-dev
+  111  ls -l
+  112  python --version
+  113  python3 --version
+  114  sudo add-apt-repository ppa:deadsnakes/ppa
+  115  sudo apt update
+  116  sudo apt install python3.11
+  117  python3 --version
+  118  python3.11 --version
+  119  cd PycharmProjects/
+  120  ls -l
+  121  rm -r airflow/
+  122  ls -l
+  123  cd ..
+  124  ls -l
+  125  ls -l
+  126  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  127  pip install pendulum
+  128  pip install --upgrade pip setuptools wheel
+  129  pip3.11 install --upgrade pip setuptools wheel
+  130  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  131  pip3.11 install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  132  sudo apt update
+  133  sudo apt install -y build-essential python3-dev python3-pip
+  134  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  135  cd ~
+  136  cd Downloads/
+  137  ls -l
+  138  pip install pendulum-3.0.0-cp311-none-win_arm64.whl 
+  139  python --version
+  140  pip install --upgrade pip setuptools wheel
+  141  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  142  pip install --no-binary :all: pendulum
+  143  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  144  python --version
+  145  pip list
+  146  pip install --upgrade pip
+  147  ls -l
+  148  pip list
+  149  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  150  ls -l
+  151  pip install --upgrade pip setuptools wheel
+  152  sudo apt install -y build-essential libffi-dev libssl-dev python3.11-dev
+  153  pip install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  154  pip3.11 install apache-airflow[celery,postgres,rabbitmq] --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.8.0/constraints-3.11.txt"
+  155  cd PycharmProjects/
+  156  ls -l
+  157  cd airflow_sandbox/
+  158  ls -l
+  159  rm -r venv/
+  160  python3.11 -m venv airflow_env
+  161  source airflow_env/bin/activate
+  162  pip install --upgrade pip setuptools wheel
+  163  ls -l
+  164  rm -r airflow_env/
+  165  clear
+  166  ls -l
+  167  python3.11 -m venv airflow_env
+  168  ls -l
+  169  source airflow_env/bin/activate
+  170  ls -l
+  171  cd airflow_env/
+  172  ls -l
+  173  ls -l./bin/ 
+  174  ls -l ./bin/ 
+  175  ls -l ./bin/python3.11/ 
+  176  cd ..
+  177  rm -r airflow_env/
+  178  sudo apt update && sudo apt upgrade -y
+  179  sudo apt install -y build-essential libffi-dev libssl-dev python3-dev
+  180  sudo apt install -y build-essential libffi-dev libssl-dev python3.11-dev
+  181  pip3.11 list
+  182  cd ..
+  183  rm -r airflow_sandbox/
+  184  cd ..
+  185  mkdir dags
+  186  touch example_dag.py
+  187  rm example_dag.py 
+  188  touch dags/example_dag.py
+  189  echo $AIRFLOW_HOME
+  190  nano ~/.bashrc
+  191  echo $AIRFLOW_HOME
+  192  source ~/.bashrc
+  193  echo $AIRFLOW_HOME
+  194  echo $AIRFLOW_HOME
+  195  cd $AIRFLOW_HOME
+  196  ls -l
+  197  ls dags/
+  198  ls -l dags/
+  199  chmod +r ~/airflow/dags/example_dag.py
+  200  ls -l dags/
+  201  airflow info | grep AIRFLOW_HOME
+  202  airflow info | grep AIRFLOW_HOME
+  203  tail -f ~/airflow/logs/scheduler/*scheduler.log
+  204  echo $AIRFLOW_HOME
+  205  clear
+  206  airflow webserver -p 8080
+  207  echo $AIRFLOW_HOME 
+  208  ls -l
+  209  docker --version
+  210  airflow standalone
+  211  rm -r airflow
+  212  PycharmProjects/
+  213  cd PycharmProjects/
+  214  ls -l
+  215  rm -r airflow_sandbox/
+  216  anaconda --version
+  217  cd ~
+  218  ls -l
+  219  cd Downloads/
+  220  ls -l
+  221  bash Anaconda3-2024.10-1-Linux-x86_64.sh 
+  222  mkdir airflow-environment
+  223  cd ~
+  224  mkdir airflow
+  225  cd airflow/
+  226  conda create --name airflow-environment python=3.12.3
+  227  nano ~/.bashrc
+  228  conda create --name airflow-environment python=3.12.3
+  229  conda
+  230  cd /home/sqlpy/Documents/airflow-environment
+  231  conda activate airflow-environment
+  232  export AIRFLOW_HOME=/home/sqlpy/Documents/airflow-environment
+  233  airflow db init
+  234  airflow webserver -p 8080
+  235  airflow db init
+  236  airflow webserver -p 8080
+  237  ls -ll
+  238  mkdir -p /home/ubuntu/airflow/logs/scheduler
+  239  chmod -R 755 /home/ubuntu/airflow/logs
+  240  airflow webserver -p 8080
+  241  ls -l
+  242  cd anaconda3/
+  243  cd ~
+  244  cd airflow/
+  245  conda create --name airflow-environment python=3.12.3
+  246  conda activate airflow-environment
+  247  echo $AIRFLOW_HOME 
+  248  pip install "apache-airflow[celery]==2.10.4" --constraint "pip install "apache-airflow[celery]==2.10.4" --constraint"
+  249  pip install "apache-airflow[celery]==2.10.4" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.4/constraints-3.8.txt"
+  250  airflow version
+  251  airflow db init
+  252  airflow users create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
+  253  rm -r airflow/
+  254  python3.11
+  255  python3 --version
+  256  pip3.11
+  257  mkdir airflow
+  258  ls -l
+  259  cd airflow/
+  260  python3.11 -m venv airflow-env
+  261  ls -l
+  262  source airflow-env/bin/activate
+  263  cd airflow/
+  264  source airflow-env/bin/activate
+  265  ls -l
+  266  rm -r airflow-env/
+  267  python3.11 -m venv airflow-env\
+  268  python3.11 -m venv airflow-env
+  269  rm -r airflow-env
+  270  ls -l
+  271  airflow webserver
+  272  history > history.txt
+  273  airflow webserver
+  274  python --version
+  275  pip install "apache-airflow[celery]==2.10.4" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.4/constraints-3.8.txt"
+  276  pip freeze > requirements.txt
+  277  airflow version
+  278  airflow db init
+  279  airflow users create     --username admin     --password admin     --firstname Admin     --lastname User     --role Admin     --email admin@example.com
+  280  mkdir dags
+  281  airflow scheduler &
+  282  airflow webserver
+  283  airflow scheduler
+  284  cd basics/
+  285  perl list_arrays.pl 
+  286  clear
+  287  perl list_arrays.pl 
+  288  perl regex.pl 
+  289  perl variable_scope.pl 
+  290  clear
+  291  perl variable_scope.pl 
+  292  perl file_appending.pl 
+  293  git config --global user.name "xmark2"
+  294  git config --global user.email "xmark2@gmail.com"
+  295  perl -v
+  296  perl basics/hello.pl 
+  297  cd basics/
+  298  perl variables.pl 
+  299  perl control.pl 
+  300  perl loops.pl 
+  301  perl subroutines.pl 
+  302  perl file_reading.pl 
+  303  perl file_writing.pl 
+  304  perl list_arrays.pl 
+  305  perl read_csv.pl 
+  306  clear
+  307  perl read_csv.pl 
+  308  clear
+  309  perl read_csv.pl 
+  310  clear
+  311  perl read_csv.pl 
+  312  clear
+  313  perl read_csv.pl 
+  314  clear
+  315  perl read_csv.pl 
+  316  perl write_csv.pl 
+  317  sudo apt install -y kubelet kubeadm kubectl
+  318  sudo apt-mark hold kubelet kubeadm kubectl
+  319  snap install kubeadm
+  320  snap install kubectl
+  321  snap install kubelet
+  322  sudo apt install kubelet=1.27.1-00 kubeadm=1.27.1-00 kubectl=1.27.1-00
+  323  sudo apt install -y kubelet kubeadm kubectl
+  324  sudo snap install kubectl --classic
+  325  curl -sfL https://get.k3s.io | sh -
+  326  sudo apt update
+  327  sudo apt install -y kubelet kubeadm kubectl
+  328  sudo apt-mark hold kubelet kubeadm kubectl
+  329  sudo kubeadm init
+  330  python --version
+  331  python
+  332  pip install requests
+  333  pip install pympler
+  334  clear
+  335  pip install pandas
+  336  pip install multiprocessing
+  337  touch test>file1.csv
+  338  clear
+  339  touch test2>./project/oop_practice/file2.csv
+  340  touch test3>./project/oop_practice/file3.csv
+  341  touch "test3">./project/oop_practice/file3.csv
+  342  "test3">./project/oop_practice/file3.csv
+  343  tee "test" ./project/oop_practice/file3.csv 
+  344  echo "test" ./project/oop_practice/file3.csv 
+  345  echo "test" > ./project/oop_practice/file3.csv 
+  346  echo "test3" > ./project/oop_practice/file3.csv 
+  347  echo "test1" > ./project/oop_practice/file1.csv 
+  348  echo "test2" > ./project/oop_practice/file1.csv 
+  349  echo "test1" > ./project/oop_practice/file1.csv 
+  350  echo "test2" > ./project/oop_practice/file2.csv 
+  351  git add .
+  352  pip install faker
+  353  cpan Text::CSV
+  354  docker --version
+  355  sudo apt-get install -y apt-transport-https curl
+  356  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  357  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  358  sudo apt update
+  359  sudo apt install -y kubelet kubeadm kubectl
+  360  sudo apt-mark hold kubelet kubeadm kubectl
+  361  ls /etc/apt/sources.list.d/kubernetes.list
+  362  sudo apt-get install -y apt-transport-https curl
+  363  curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
+  364  echo "deb https://apt.kubernetes.io/ kubernetes-xenial main" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  365  ping packages.cloud.google.com
+  366  ls -l
+  367  cd PycharmProjects/
+  368  ls -l
+  369  cd ..
+  370  cd py_sandbox/
+  371  ls -l
+  372  venv/bin/activate
+  373  sudo venv/bin/activate
+  374  bash
+  375  !
+  376  clear
+  377  ls -l
+  378  ls -l venv/bin/activate
+  379  ls -l venv/bin/
+  380  python --version
+  381  python3 --version
+  382  python 3.11
+  383  . venv/bin/activate
+  384  pip install multiprocessing
+  385  pwd
+  386  mv -r py_sandbox/ PycharmProjects/
+  387  mv py_sandbox/ PycharmProjects/
+  388  cd PycharmProjects/py_sandbox/
+  389  ls -l
+  390  rm -r venv/
+  391  cd ..
+  392  rm -r py_sandbox/
+  393  rm -r -f py_sandbox/
+  394  ls -l
+  395  cd..
+  396  cd ..
+  397  ls -l
+  398  rm -r py_sandbox/
+  399  rm -r -f py_sandbox/
+  400  pip list
+  401  pip install -r requirements.txt 
+  402  clear
+  403  pip install -r requirements.txt 
+  404  cd PycharmProjects/
+  405  cd py_sandbox/
+  406  rm -r -f venv/
+  407  pip list
+  408  pwd
+  409  python --version
+  410  airflow --version
+  411  ls -l
+  412  python --version
+  413  echo %AIRFLOW_HOME
+  414  echo $AIRFLOW_HOME
+  415  airflow webserver
+  416  airflow webserver -p 8080
+  417  airflow scheduler
+  418  airflow webserver -p 8080
+  419  clear
+  420  touch README.md
+  421  pip install "apache-airflow[celery]==2.10.4" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.4/constraints-3.8.txt"
+  422  airflow --version
+  423  airflow version
+  424  echo $AIRFLOW_HOME
+  425  airflow db init
+  426  airflow users create --role Admin --username admin --email admin --firstname admin --lastname admin --password admin
+  427  airflow webserver -p 8080
+  428  grep load_examples ~/.airflow/airflow.cfg
+  429  airflow scheduler
+  430  export AIRFLOW_HOME=.
+  431  echo $AIRFLOW_HOME
+  432  airflow dags list
+  433  airflow db init
+  434  ls -l
+  435  rm -r airflow
+  436  cd PycharmProjects/
+  437  ls -l
+  438  rm -r airflow/
+  439  rm -r -f airflow/
+  440  ls -l
+  441  clear
+  442  cd PycharmProjects/
+  443  ls -l
+  444  rm -r -f airflow/
+  445  ls -l
+  446  source .venv/bin/activate
+  447  pip install "apache-airflow[celery]==2.10.4" --constraint "https://raw.githubusercontent.com/apache/airflow/constraints-2.10.4/constraints-3.8.txt"
+  448  airflow scheduler
+  449  airflow --version
+  450  airflow version
+  451  echo -e "AIRFLOW_UID=$(id -u)" > .env
+  452  git init
+  453  cd airflow_docker/
+  454  ls -l
+  455  cd ..
+  456  rm -r airflow_docker/
+  457  history
+  458  python --version
+  459  history
+  460  cd airflow_docker/
+  461  pwd
+  462  docker --version
+  463  docker-compose --version
+  464  docker-compose
+  465  sudo apt install docker-compose
+  466  docker --version
+  467  docker-compose --version
+  468  curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.10.5/docker-compose.yaml'
+  469  mkdir -p ./dags ./logs ./plugins ./config
+  470  echo -e "AIRFLOW_UID=$(id -u)" > .env
+  471  docker-compose up airflow-init
+  472  clear
+  473  sudo docker-compose up airflow-init
+  474  sudo docker-compose up
+  475  history
+  476  git status
+  477  sudo docker-compose up
+  478  docker-compose down
+  479  cd airflow_docker/
+  480  docker-compose down
+  481  ping google.com
+  482  sudo docker-compose up
+  483  cd airflow_docker/
+  484  clear
+  485  sudo docker-compose up
+  486  sudo docker-compose --version
+  487  cd ..
+  488  rm -r -f airflow_docker/
+  489  git clone https://github.com/apache/airflow.git
+  490  clear
+  491  speedtest-cli
+  492  sudo apt install speedtest-cli
+  493  speedtest-cli
+  494  cd vs_codes/
+  495  ls -la
+  496  rm -r -f airflow_docker/
+  497  ls -la
+  498  rm -r -f airflow_docker/
+  499  sudo rm -r -f airflow_docker/
+  500  ls -la
+  501  speedtest-cli
+  502  clear
+  503  sudo rm -r -f airflow_docker/
+  504  git clone https://github.com/apache/airflow.git
+  505  ls -la
+  506  clear
+  507  cd vs_codes/
+  508  ls- l
+  509  ls -la
+  510  clear
+  511  git clone https://github.com/apache/airflow.git
+  512  ls -la
+  513  cd airflow_docker/
+  514  ls -l
+  515  cd ..
+  516  cd airflow
+  517  ls -la
+  518  cd ..
+  519  cd airflow_docker/
+  520  echo AIRFLOW_UID=50000 > .env
+  521  sudo echo AIRFLOW_UID=50000 > .env
+  522  ls -la
+  523  cd ..
+  524  cd airflow
+  525  cd docker
+  526  echo AIRFLOW_UID=50000 > .env
+  527  ls -l doc*
+  528  curl -LfO 'https://airflow.apache.org/docs/apache-airflow/2.7.0/docker-compose.yaml'
+  529  mv docker-compose.yaml docker-compose.yml
+  530  docker-compose up airflow-init
+  531  sudo docker-compose up airflow-init
+  532  docker-compose up -d
+  533  sudo docker-compose up -d
+  534  sudo docker-compose down
+  535  docker ps
+  536  sudo docker ps
+  537  sudo docker-compose up -d
+  538  sudo lsof -i :8080
+  539  sudo kill -9 47425
+  540  sudo kill -9 47431
+  541  sudo systemctl restart docker
+  542  sudo lsof -i :8080
+  543  ip a
+  544  clear
+  545  docker ps | grep airflow-webserver
+  546  sudo docker ps | grep airflow-webserver
+  547  sudo netstat -tulnp | grep 9090
+  548  sudo apt install netstat
+  549  sudo apt update && sudo apt install net-tools
+  550  sudo netstat -tulnp | grep 9090
+  551  sudo ss -tulnp | grep 9090
+  552  sudo docker logs airflow_webserver
+  553  sudo docker-compose down
+  554  ls -la doc*
+  555  cd airflow
+  556  ls -la doc*
+  557  ls -la doc*.yml
+  558  sudo docker-compose up -d
+  559  clear
+  560  sudo docker-compose up -d
+  561  sudo apt update && sudo apt install docker-compose
+  562  sudo docker-compose up -d
+  563  clear
+  564  sudo docker-compose up -d
+  565  sudo docker-compose down --volumes
+  566  sudo docker-compose up -d --force-recreate
+  567  sudo docker-compose down
+  568  sudo docker-compose up
+  569  clear
+  570  sudo docker-compose down --volumes
+  571  ifconfig
+  572  sudo apt install ifconfig
+  573  hostname -I
+  574  sudo docker-compose up -d --force-recreate
+  575  sudo docker-compose down --volumes
+  576  sudo docker-compose up -d --force-recreate
+  577  ip a | grep inet
+  578  ip a
+  579  clear
+  580  ip a | grep inet
+  581  ip a
+  582  ip a | grep 17
+  583  ip a | grep inet
+  584  clear
+  585  ip a | grep inet
+  586  sudo docker-compose down
+  587  cd ..
+  588  rm -r airflow
+  589  rm -r -f airflow
+  590  sudo rm -r -f airflow
+  591  sudo rm -r -f airflow_docker/
+  592  clear
+  593  sudo rm -r -f airflow_docker/
+  594  pip list | grep jupyter
+  595  node -v
+  596  sudo apt install nodejs
+  597  node -v
+  598  npm -v
+  599  sudo apt install npm
+  600  pip install jupyterlab_scheduler
+  601  pip list | grep jupyter
+  602  jupyter labextension install jupyterlab_scheduler
+  603  jupyter lab
+  604  pip list | grep SQLAl
+  605  pip list | grep jupyter
+  606  pip install jupyterlab_scheduler
+  607  pip install --upgrade pip
+  608  jupyter lab
+  609  pip install --upgrade jupyterlab
+  610  pip install jupyterlab~=3.1.4
+  611  jupyter lab
+  612  clear
+  613  pip list | grep jupyter
+  614  pip install anyio
+  615  pip install jupyter_server
+  616  jupyter lab
+  617  sudo apt install nodejs npm
+  618  which node
+  619  jupyter lab clean
+  620  jupyter lab build
+  621  jupyter lab build --dev-build=False --minimize=False
+  622  sudo apt update && sudo apt upgrade -y
+  623  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+  624  sudo apt install -y nodejs
+  625  sudo apt autoremove
+  626  sudo apt install -y nodejs
+  627  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+  628  sudo rm /etc/apt/sources.list.d/kubernetes.list
+  629  echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+  630  curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+  631  sudo apt update
+  632  sudo apt install kubeadm kubelet kubectl
+  633  clear
+  634  sudo apt install -y nodejs
+  635  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
+  636  sudo apt install -y nodejs
+  637  node -v
+  638  npm -v
+  639  jupyter lab clean
+  640  jupyter lab build --dev-build=False --minimize=False
+  641  jupyter lab
+  642  history
+  643  history >history.txt
