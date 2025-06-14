@@ -52,3 +52,23 @@ python setup.py sdist
 ```commandline
 python setup.py bdist_wheel  
 ```
+
+
+# Install jupyter scheduler
+
+```commandline
+pip install jupyter_scheduler
+jupyter server extension enable jupyter_scheduler
+jupyter lab
+
+jupyter lab clean
+jupyter lab build
+```
+
+
+If not works I tried these
+```commandline
+pip install jupyter_scheduler
+pip install --upgrade jupyterlab
+pip install --force-reinstall psutil==5.9.0 jupyterlab==3.1.4 anyio==4.7.0 jupyter_server==2.15.0 typing_extensions==4.10.0 websockets==10.4
+```
