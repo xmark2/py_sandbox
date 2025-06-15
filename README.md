@@ -72,3 +72,9 @@ pip install jupyter_scheduler
 pip install --upgrade jupyterlab
 pip install --force-reinstall psutil==5.9.0 jupyterlab==3.1.4 anyio==4.7.0 jupyter_server==2.15.0 typing_extensions==4.10.0 websockets==10.4
 ```
+
+# Run jupyter lab
+
+```commandline
+jupyter lab
+```
